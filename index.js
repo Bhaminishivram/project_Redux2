@@ -1,4 +1,6 @@
-const {createStore, combineReducers} = require("redux") 
+const {createStore, combineReducers,applyMiddleware} = require("redux") 
+const logger = require('redux-logger').default; 
+const thunk = require('redux-thunk');
 //type
 const BUY_LAPTOP = "BUY_LAPTOP"; 
 const BUY_MOBILE = "BUY-MOBILE";
@@ -55,7 +57,7 @@ const laptopReducer = (state = initialState, action) => {
  }  
  //Store 
  const rootReducer = combineReducers({laptop:laptopReducer,mobiles:mobileReducer})
- const store = createStore(rootReducer);
+ const store = createStore(rootReducer,applyMiddleware(logger,thunk));
  //console.log(store); 
  store.subscribe(()=> {console.log(store.getState())});
  store.dispatch(buyLaptop());
